@@ -14,7 +14,7 @@ __Note:__ The script is based entirely on [node-webiste-scraper](https://github.
 ## Installation
 
 ```bash
-npm install -g website-downloader
+npm install -g node-site-downloader
 ```
 
 ## Usage
