@@ -27,5 +27,8 @@
     "@types/website-scraper": "^1.2.4",
     "jest": "^24.8.0",
     "prettier": "^1.18.2"
+  },
+  "bin": {
+    "node-site-downloader": "./index.js"
   }
 }

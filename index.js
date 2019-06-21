@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // Basic website downloader using web-scraper
 const scrape = require("website-scraper");
 const argv = require("./args_parser");
