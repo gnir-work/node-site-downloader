@@ -6,7 +6,7 @@ const checkSuffix = (url, allowedSuffix) =>
 const checkBlackList = (url, blackList) =>
     !_.some(blackList, item => _.includes(url, item));
 
-const checkDomain = (url, domain) => _.includes(url, domain);
+const checkDomain = (url, domain) => Boolean(domain && _.includes(url, domain));
 
 const checkUrl = (url, domain, allowedSuffix, blackList) =>
     (checkSuffix(url, allowedSuffix) || checkDomain(url, domain)) &&
