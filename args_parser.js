@@ -32,4 +32,6 @@ module.exports = yargs
             description: "The suffix that will be added to the output folder.",
             default: 'site'
         }
-    }).argv;
+    })
+    .demandCommand(1, 'Please selected at least on command before moving on')
+    .argv;
