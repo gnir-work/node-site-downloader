@@ -1,6 +1,6 @@
 {
   "name": "node-site-downloader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An easy to use CLI for downloading websites for offline usage",
   "main": "index.js",
   "scripts": {
