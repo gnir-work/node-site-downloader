@@ -20,7 +20,8 @@
   "homepage": "https://github.com/gnir-work/node-site-downloader#readme",
   "dependencies": {
     "lodash": "^4.17.11",
-    "website-scraper": "^4.0.1"
+    "website-scraper": "^4.0.1",
+    "yargs": "^13.2.4"
   },
   "devDependencies": {
     "@types/website-scraper": "^1.2.4",

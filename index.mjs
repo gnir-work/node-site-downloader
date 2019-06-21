@@ -1,34 +1,36 @@
 // Basic website downloader using web-scraper
-import scrape from 'website-scraper';
-import _ from 'lodash';
-const startPoint = 'https://overreacted.io/';
-const domain = 'https://overreacted.io/';
-const allowedSuffix = ['.js', '.css']
-const blackList = ['https://github']
+import scrape from "website-scraper";
+import argv from "./args_parser";
+import { checkUrl } from "./utils";
 
-const checkSuffix = (url) => _.some(allowedSuffix, suffix => _.endsWith(url, suffix));
+const allowedSuffix = [".js", ".css"];
+const blackList = ["https://github"];
+const maxDepth = 50;
 
-const checkBlackList = (url) => !_.some(blackList, item => _.includes(url, item));
+const urlFilter = url => {
+    const shouldDownload = checkUrl(url, argv.domain, allowedSuffix, blackList);
 
-const checkDomain = (url) => _.includes(url, domain);
-
-const urlFilter = (url) => {
-    const shouldDownloadUrl = (checkSuffix(url) || checkDomain(url)) & checkBlackList(url);
-    if (shouldDownloadUrl) {
-        console.log(`Downloading ${url}`);
+    if (shouldDownload && argv.verbose) {
+        console.log(`Downloading ${url}...`);
     }
-    return shouldDownloadUrl;
-}
+
+    return shouldDownload;
+};
+
+console.log(
+    `Downloading all urls under ${argv.domain}, starting from ${argv.startPoint}`
+);
 
 scrape({
-    urls: [startPoint],
-    urlFilter: urlFilter,
+    urls: [argv.startPoint],
     recursive: true,
     maxDepth: 50,
-    directory: './node-website',
-}).then((data) => {
-    console.log("Done!!!")
-}).catch((err) => {
-    console.log("An error occured", err)
-});
-
+    directory: argv.outputFolder,
+    urlFilter: urlFilter
+})
+    .then(data => {
+        console.log(`Finished downloading ${argv.startPoint}`);
+    })
+    .catch(err => {
+        console.log("An error occured", err);
+    });
