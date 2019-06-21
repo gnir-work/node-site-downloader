@@ -4,7 +4,8 @@
   "description": "An easy to use CLI for downloading websites for offline usage",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier **/*.{js,mjs} --write"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "website-scraper": "^4.0.1"
   },
   "devDependencies": {
-    "@types/website-scraper": "^1.2.4"
+    "@types/website-scraper": "^1.2.4",
+    "prettier": "^1.18.2"
   }
 }
