@@ -27,5 +27,9 @@ export default yargs
                 "Should the script print every downloaded url to stdout?",
             type: "boolean",
             alias: "v"
+        },
+        outputFolderSuffix: {
+            description: "The suffix that will be added to the output folder.",
+            default: 'site'
         }
     }).argv;

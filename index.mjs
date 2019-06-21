@@ -25,7 +25,7 @@ scrape({
     urls: [argv.startPoint],
     recursive: true,
     maxDepth: 50,
-    directory: argv.outputFolder,
+    directory: `${argv.outputFolder}.${argv.outputFolderSuffix}`,
     urlFilter: urlFilter
 })
     .then(data => {
