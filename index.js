@@ -1,14 +1,14 @@
 // Basic website downloader using web-scraper
-import scrape from "website-scraper";
-import argv from "./args_parser";
-import { checkUrl } from "./utils";
+const scrape = require("website-scraper");
+const argv = require("./args_parser");
+const utils = require("./utils/utils");
 
 const allowedSuffix = [".js", ".css"];
 const blackList = ["https://github"];
 const maxDepth = 50;
 
 const urlFilter = url => {
-    const shouldDownload = checkUrl(url, argv.domain, allowedSuffix, blackList);
+    const shouldDownload = utils.checkUrl(url, argv.domain, allowedSuffix, blackList);
 
     if (shouldDownload && argv.verbose) {
         console.log(`Downloading ${url}...`);

@@ -1,1 +1,0 @@
-export { checkUrl } from './utils';

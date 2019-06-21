@@ -1,6 +1,6 @@
-import yargs from "yargs";
+const yargs = require("yargs");
 
-export default yargs
+module.exports = yargs
     .help()
     .alias("help", "h")
     .command("download", "Download a web site locally", {
