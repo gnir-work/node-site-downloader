@@ -1,0 +1,27 @@
+{
+  "name": "node-site-downloader",
+  "version": "1.0.0",
+  "description": "An easy to use CLI for downloading websites for offline usage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gnir-work/node-site-downloader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gnir-work/node-site-downloader/issues"
+  },
+  "homepage": "https://github.com/gnir-work/node-site-downloader#readme",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "website-scraper": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/website-scraper": "^1.2.4"
+  }
+}
