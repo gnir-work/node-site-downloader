@@ -10,7 +10,12 @@ const blackList = ["https://github"];
 const maxDepth = 50;
 
 const urlFilter = url => {
-    const shouldDownload = utils.checkUrl(url, argv.domain, allowedSuffix, blackList);
+    const shouldDownload = utils.checkUrl(
+        url,
+        argv.domain,
+        allowedSuffix,
+        blackList
+    );
 
     if (shouldDownload && argv.verbose) {
         console.log(`Downloading ${url}...`);
@@ -26,9 +31,9 @@ console.log(
 scrape({
     urls: [argv.startPoint],
     recursive: true,
-    maxDepth: 50,
     directory: `${argv.outputFolder}.${argv.outputFolderSuffix}`,
-    urlFilter: urlFilter
+    maxDepth,
+    urlFilter
 })
     .then(data => {
         console.log(`Finished downloading ${argv.startPoint}`);

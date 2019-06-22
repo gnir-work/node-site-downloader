@@ -6,7 +6,7 @@ const _ = require("lodash");
  * to pass suffixes with . in order to make sure that it is really a file's suffix.
  * For example if we pass ['js'] we probably want all of the js files and not
  * the page https://reactjs.
- * 
+ *
  * @param {String} url The url that will be checked.
  * @param {Array[String]} allowedSuffix All of the allowed suffixes in an array.
  * @returns {Boolean}
@@ -15,7 +15,7 @@ const checkSuffix = (url, allowedSuffix) =>
     _.some(allowedSuffix, suffix => _.endsWith(url, suffix));
 
 /**
- * Checks the urls against the passed black list. 
+ * Checks the urls against the passed black list.
  * @param {String} url The url that will be checked
  * @param {Array[String]} blackList All of the blacklisted strings.
  * @returns {Boolean}
@@ -25,7 +25,7 @@ const checkBlackList = (url, blackList) =>
 
 /**
  * Checks that the domain is part of the url.
- * @param {String} url The url that will be checked. 
+ * @param {String} url The url that will be checked.
  * @param {String} domain The expected domain.
  * @param {Boolean}
  */
