@@ -27,7 +27,7 @@ const checkBlackList = (url, blackList) =>
  * Checks that the domain is part of the url.
  * @param {String} url The url that will be checked.
  * @param {String} domain The expected domain.
- * @param {Boolean}
+ * @returns {Boolean}
  */
 const checkDomain = (url, domain) => Boolean(domain && _.includes(url, domain));
 
@@ -39,6 +39,7 @@ const checkDomain = (url, domain) => Boolean(domain && _.includes(url, domain));
  * @param {String} domain The expected domain of the url.
  * @param {Array[String]} allowedSuffix All of the allowed suffixes.
  * @param {Array[String]} blackList Black listed keywords.
+ * @returns {Boolean}
  */
 const checkUrl = (url, domain, allowedSuffix, blackList) =>
     (checkSuffix(url, allowedSuffix) || checkDomain(url, domain)) &&
