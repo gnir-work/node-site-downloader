@@ -1,4 +1,6 @@
+const _ = require("lodash");
 const utils = require("./utils");
+const resourceManager = require("../resource_manager/resource_manager");
 
 test.each`
     url          | suffix                    | expected | message
@@ -35,6 +37,16 @@ test.each`
 });
 
 test.each`
+    url                                     | expected      | message
+    ${"https://github.com/test.png"}        | ${"test.png"} | ${"url doesn't end with a /"}
+    ${"https://github.com/test.png/"}       | ${"test.png"} | ${"url does end with a /"}
+    ${"https://github.com/a/b/c/test.png"}  | ${"test.png"} | ${"url has several / and doesn't end with /"}
+    ${"https://github.com/a/b/c/test.png/"} | ${"test.png"} | ${"url has several / and ends with /"}
+`("Check getResourceNameFromUrl when $message", ({ url, expected }) => {
+    expect(utils.getResourceNameFromUrl(url)).toBe(expected);
+});
+
+test.each`
     url                                 | domain      | suffix      | blacklist     | expected | message
     ${"https://jest.com/docs/index.js"} | ${"jest"}   | ${[".js"]}  | ${["github"]} | ${true}  | ${"Domain and suffix match the url"}
     ${"https://jest.com/docs"}          | ${"jest"}   | ${[]}       | ${["github"]} | ${true}  | ${"Only domain matches the url"}
@@ -46,6 +58,31 @@ test.each`
 `(
     "Check checkUrl when $message",
     ({ url, domain, suffix, blacklist, expected }) => {
-        expect(utils.checkUrl(url, domain, suffix, blacklist)).toBe(expected);
+        expect(
+            utils.checkUrl(url, domain, {
+                allowedSuffixes: suffix,
+                blackList: blacklist,
+                allowedImageSuffixes: []
+            })
+        ).toBe(expected);
     }
 );
+
+describe("Tests that need to reset the resource manager", () => {
+    beforeEach(() => {
+        resourceManager.resources = [];
+    });
+
+    test.each`
+        urls                                                          | suffix      | expectedValues   | message
+        ${["https://test/a.jpg"]}                                     | ${[".jpg"]} | ${[true]}        | ${"One allowed url"}
+        ${["https://test/a.zip"]}                                     | ${[".jpg"]} | ${[false]}       | ${"One url with bad suffix"}
+        ${["https://test/a.jpg", "https://test/a.jpg"]}               | ${[".jpg"]} | ${[true, false]} | ${"Twice the same url"}
+        ${["https://test/a.jpg", "https://test/a.jpg/different.jpg"]} | ${[".jpg"]} | ${[true, true]}  | ${"Twice almost same url, different ending"}
+        ${["https://test/a.jpg", "https://test/b/a.jpg"]}             | ${[".jpg"]} | ${[true, false]} | ${"Twice almost same url, different body, same ending"}
+    `("Check checkSuffix when $message", ({ urls, suffix, expectedValues }) => {
+        for (const [url, expectedValue] of _.zip(urls, expectedValues)) {
+            expect(utils.checkImage(url, suffix)).toBe(expectedValue);
+        }
+    });
+});

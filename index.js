@@ -2,17 +2,18 @@
 
 // Basic website downloader using web-scraper
 const scrape = require("website-scraper");
-const { domain, verbose, startPoint, outputFolder, outputFolderSuffix } = require("./args_parser");
+const {
+    domain,
+    verbose,
+    startPoint,
+    outputFolder,
+    outputFolderSuffix
+} = require("./args_parser");
+const { MAX_DEPTH } = require("./consts");
 const utils = require("./utils/utils");
-const { allowedSuffix, blackList, maxDepth } = require('./consts').default;
 
 const urlFilter = url => {
-    const shouldDownload = utils.checkUrl(
-        url,
-        domain,
-        allowedSuffix,
-        blackList
-    );
+    const shouldDownload = utils.checkUrl(url, domain);
 
     if (shouldDownload && verbose) {
         console.log(`Downloading ${url}...`);
@@ -29,7 +30,7 @@ scrape({
     urls: [startPoint],
     recursive: true,
     directory: `${outputFolder}.${outputFolderSuffix}`,
-    maxDepth,
+    maxDepth: MAX_DEPTH,
     urlFilter
 })
     .then(data => {

@@ -31,24 +31,24 @@ const params = yargs
             demandOption: true
         },
         outputFolder: {
-            description: "The folder in which the site will be saved on your computer",
+            description:
+                "The folder in which the site will be saved on your computer",
             alias: "o",
             type: "string",
             demandOption: true
         },
         verbose: {
-            description:
-                "Should the script print progress to stdout?",
+            description: "Should the script print progress to stdout?",
             type: "boolean",
             alias: "v"
         },
         outputFolderSuffix: {
             description: "The suffix that will be added to the output folder.",
             type: "string",
-            default: 'site'
+            default: "site"
         }
     })
-    .demandCommand(1, 'Please selected at least on command before moving on')
+    .demandCommand(1, "Please selected at least on command before moving on")
     .argv;
 
-module.exports =  params;
+module.exports = params;
