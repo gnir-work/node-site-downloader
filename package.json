@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/gnir-work/node-site-downloader#readme",
   "dependencies": {
+    "@types/jest": "^24.0.15",
     "lodash": "^4.17.11",
     "website-scraper": "^4.0.1",
     "yargs": "^13.2.4"

@@ -2,22 +2,31 @@
 
 // Basic website downloader using web-scraper
 const scrape = require("website-scraper");
-const argv = require("./args_parser");
+const {
+    domain,
+    verbose,
+    startPoint,
+    outputFolder,
+    outputFolderSuffix,
+    includeImages
+} = require("./args_parser");
+const {
+    MAX_DEPTH,
+    ALLOWED_SUFFIXES,
+    ALLOWED_IMAGE_SUFFIXES,
+    BLACK_LIST
+} = require("./consts");
 const utils = require("./utils/utils");
 
-const allowedSuffix = [".js", ".css"];
-const blackList = ["https://github"];
-const maxDepth = 50;
-
 const urlFilter = url => {
-    const shouldDownload = utils.checkUrl(
-        url,
-        argv.domain,
-        allowedSuffix,
-        blackList
-    );
+    const shouldDownload = utils.checkUrl(url, domain, {
+        allowedSuffixes: ALLOWED_SUFFIXES,
+        allowedImageSuffixes: ALLOWED_IMAGE_SUFFIXES,
+        blackList: BLACK_LIST,
+        includeImages
+    });
 
-    if (shouldDownload && argv.verbose) {
+    if (shouldDownload && verbose) {
         console.log(`Downloading ${url}...`);
     }
 
@@ -25,18 +34,18 @@ const urlFilter = url => {
 };
 
 console.log(
-    `Downloading all urls under ${argv.domain}, starting from ${argv.startPoint}`
+    `Downloading all urls under ${domain}, starting from ${startPoint}`
 );
 
 scrape({
-    urls: [argv.startPoint],
+    urls: [startPoint],
     recursive: true,
-    directory: `${argv.outputFolder}.${argv.outputFolderSuffix}`,
-    maxDepth,
+    directory: `${outputFolder}.${outputFolderSuffix}`,
+    maxDepth: MAX_DEPTH,
     urlFilter
 })
     .then(data => {
-        console.log(`Finished downloading ${argv.startPoint}`);
+        console.log(`Finished downloading ${startPoint}`);
     })
     .catch(err => {
         console.log("An error occured", err);
