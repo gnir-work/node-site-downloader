@@ -1,6 +1,6 @@
 // @ts-nocheck
 const yargs = require("yargs");
-const { INCLUDE_IMAGES } = require('./consts');
+const { INCLUDE_IMAGES } = require("./consts");
 
 /**
  * All of the user parameters
@@ -34,7 +34,7 @@ const params = yargs
         },
         includeImages: {
             description: "Should the script download relevant images as well?",
-            type: "flag",
+            type: "flag"
         },
         outputFolder: {
             description:

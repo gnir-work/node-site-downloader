@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npx jest",
-    "format": "prettier **/*.{js,mjs} --write"
+    "format": "prettier **/*.{js,mjs} --write",
+    "version-bump": "npm test && bump --commit --tag --push"
   },
   "repository": {
     "type": "git",
