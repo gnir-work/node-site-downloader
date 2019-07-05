@@ -27,6 +27,7 @@ website-downloader download DOMAIN START_POINT OUTPUT_FOLDER [VERBOSE] [OUTPUT_F
 
 * domain - The script will download all of the urls under the specified url.
 * start point - The page from which the script should start scraping
+* include-images - Should the script download relevant images as well?
 * output folder - The folder in which the script should save the downloaded assets,
   __Note:__ The folder should not exist!
 * verbose - If flag is present the script will print every url that was downloaded.

@@ -3,7 +3,8 @@ const urlParser = require("url");
 const {
     ALLOWED_SUFFIXES,
     BLACK_LIST,
-    ALLOWED_IMAGE_SUFFIXES
+    ALLOWED_IMAGE_SUFFIXES,
+    INCLUDE_IMAGES
 } = require("../consts");
 const resourceManager = require("../resource_manager/resource_manager");
 
@@ -80,21 +81,28 @@ const checkImage = (url, allowedImageSuffixes) => {
  * @param {String[]} obj.allowedSuffixes All of the allowed suffixes.
  * @param {string[]} obj.allowedImageSuffixes All of the allowed suffixes for an image to have.
  * @param {String[]} obj.blackList Black listed keywords.
+ * @param {boolean} obj.includeImages should the script download images as well?
  * @returns {Boolean} Wether the url should be downloaded or not.
  */
 const checkUrl = (
     url,
     domain,
-    { allowedSuffixes, allowedImageSuffixes, blackList } = {
+    { allowedSuffixes, allowedImageSuffixes, blackList, includeImages } = {
         allowedSuffixes: ALLOWED_SUFFIXES,
         allowedImageSuffixes: ALLOWED_IMAGE_SUFFIXES,
-        blackList: BLACK_LIST
+        blackList: BLACK_LIST,
+        includeImages: INCLUDE_IMAGES
     }
-) =>
-    (checkSuffix(url, allowedSuffixes) ||
+) => {
+    if (!checkBlackList(url, blackList)) {
+        return false;
+    }
+    return (
+        checkSuffix(url, allowedSuffixes) ||
         checkDomain(url, domain) ||
-        checkImage(url, allowedImageSuffixes)) &&
-    checkBlackList(url, blackList);
+        (checkImage(url, allowedImageSuffixes) && includeImages)
+    );
+};
 
 module.exports = {
     checkSuffix,
