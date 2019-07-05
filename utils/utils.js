@@ -8,7 +8,7 @@ const _ = require("lodash");
  * the page https://reactjs.
  *
  * @param {String} url The url that will be checked.
- * @param {Array[String]} allowedSuffix All of the allowed suffixes in an array.
+ * @param {Array<String>} allowedSuffix All of the allowed suffixes in an array.
  * @returns {Boolean}
  */
 const checkSuffix = (url, allowedSuffix) =>
@@ -17,7 +17,7 @@ const checkSuffix = (url, allowedSuffix) =>
 /**
  * Checks the urls against the passed black list.
  * @param {String} url The url that will be checked
- * @param {Array[String]} blackList All of the blacklisted strings.
+ * @param {Array<String>} blackList All of the blacklisted strings.
  * @returns {Boolean}
  */
 const checkBlackList = (url, blackList) =>
@@ -37,8 +37,8 @@ const checkDomain = (url, domain) => Boolean(domain && _.includes(url, domain));
  * of the other parameters.
  * @param {String} url The url that will be checked.
  * @param {String} domain The expected domain of the url.
- * @param {Array[String]} allowedSuffix All of the allowed suffixes.
- * @param {Array[String]} blackList Black listed keywords.
+ * @param {Array<String>} allowedSuffix All of the allowed suffixes.
+ * @param {Array<String>} blackList Black listed keywords.
  * @returns {Boolean}
  */
 const checkUrl = (url, domain, allowedSuffix, blackList) =>

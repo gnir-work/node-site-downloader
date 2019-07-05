@@ -2,22 +2,19 @@
 
 // Basic website downloader using web-scraper
 const scrape = require("website-scraper");
-const argv = require("./args_parser");
+const { domain, verbose, startPoint, outputFolder, outputFolderSuffix } = require("./args_parser");
 const utils = require("./utils/utils");
-
-const allowedSuffix = [".js", ".css"];
-const blackList = ["https://github"];
-const maxDepth = 50;
+const { allowedSuffix, blackList, maxDepth } = require('./consts').default;
 
 const urlFilter = url => {
     const shouldDownload = utils.checkUrl(
         url,
-        argv.domain,
+        domain,
         allowedSuffix,
         blackList
     );
 
-    if (shouldDownload && argv.verbose) {
+    if (shouldDownload && verbose) {
         console.log(`Downloading ${url}...`);
     }
 
@@ -25,18 +22,18 @@ const urlFilter = url => {
 };
 
 console.log(
-    `Downloading all urls under ${argv.domain}, starting from ${argv.startPoint}`
+    `Downloading all urls under ${domain}, starting from ${startPoint}`
 );
 
 scrape({
-    urls: [argv.startPoint],
+    urls: [startPoint],
     recursive: true,
-    directory: `${argv.outputFolder}.${argv.outputFolderSuffix}`,
+    directory: `${outputFolder}.${outputFolderSuffix}`,
     maxDepth,
     urlFilter
 })
     .then(data => {
-        console.log(`Finished downloading ${argv.startPoint}`);
+        console.log(`Finished downloading ${startPoint}`);
     })
     .catch(err => {
         console.log("An error occured", err);
