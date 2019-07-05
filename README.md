@@ -20,8 +20,19 @@ npm install -g node-site-downloader
 ## Usage
 
 ```bash
-website-downloader download DOMAIN START_POINT OUTPUT_FOLDER [VERBOSE] [OUTPUT_FOLDER_SUFFIX]
+website-downloader download DOMAIN START_POINT OUTPUT_FOLDER [VERBOSE] [OUTPUT_FOLDER_SUFFIX] [INCLUDE_IMAGES]
 ```
+
+
+
+## Example
+
+```bash
+# Download all of the english jest documentation
+website-downloader download -s https://jestjs.io/docs/en/getting-started -d https://jestjs.io/docs/en/ -o jest-docs -v --include-images
+```
+
+
 
 ## Options
 
