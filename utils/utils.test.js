@@ -3,13 +3,14 @@ const utils = require("./utils");
 const resourceManager = require("../resource_manager/resource_manager");
 
 test.each`
-    url          | suffix                    | expected | message
-    ${"test.js"} | ${[".js"]}                | ${true}  | ${"Only suffix matches the url"}
-    ${"test.js"} | ${[".js", ".css"]}        | ${true}  | ${"Only one of suffixes matches the url"}
-    ${"test.js"} | ${[".js", ".css", ".js"]} | ${true}  | ${"Several suffixes match the url"}
-    ${"test.js"} | ${[]}                     | ${false} | ${"No suffixes passed"}
-    ${"test.js"} | ${[".random"]}            | ${false} | ${"only suffix doesn't match the url"}
-    ${"test.js"} | ${[".something", ".j"]}   | ${false} | ${"All of the suffixes don't match the url, some of them match partly"}
+    url                                 | suffix                    | expected | message
+    ${"test.js"}                        | ${[".js"]}                | ${true}  | ${"Only suffix matches the url"}
+    ${"test.js"}                        | ${[".js", ".css"]}        | ${true}  | ${"Only one of suffixes matches the url"}
+    ${"test.js"}                        | ${[".js", ".css", ".js"]} | ${true}  | ${"Several suffixes match the url"}
+    ${"test.js"}                        | ${[]}                     | ${false} | ${"No suffixes passed"}
+    ${"test.js"}                        | ${[".random"]}            | ${false} | ${"only suffix doesn't match the url"}
+    ${"test.js"}                        | ${[".something", ".j"]}   | ${false} | ${"All of the suffixes don't match the url, some of them match partly"}
+    ${"https://semethings/test.js?a=1"} | ${[".js"]}                | ${true}  | ${"Url ends with a query param"}
 `("Check checkSuffix when $message", ({ url, suffix, expected }) => {
     expect(utils.checkSuffix(url, suffix)).toBe(expected);
 });
@@ -62,7 +63,8 @@ test.each`
             utils.checkUrl(url, domain, {
                 allowedSuffixes: suffix,
                 blackList: blacklist,
-                allowedImageSuffixes: []
+                allowedImageSuffixes: [],
+                includeImages: false
             })
         ).toBe(expected);
     }
