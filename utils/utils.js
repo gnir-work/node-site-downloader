@@ -20,7 +20,7 @@ const resourceManager = require("../resource_manager/resource_manager");
  * @returns {Boolean}
  */
 const checkSuffix = (url, allowedSuffix) =>
-    _.some(allowedSuffix, suffix => _.endsWith(url, suffix));
+    _.some(allowedSuffix, suffix => _.endsWith(urlParser.parse(url).pathname, suffix));
 
 /**
  * Checks the urls against the passed black list.
