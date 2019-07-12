@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npx jest",
     "format": "prettier **/*.{js,mjs} --write",
-    "version-bump": "npm test && bump --commit --tag --push"
+    "version-bump": "npm test && npx bump --commit --tag --push"
   },
   "repository": {
     "type": "git",
@@ -41,7 +41,8 @@
   "devDependencies": {
     "@types/website-scraper": "^1.2.4",
     "jest": "^24.8.0",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "version-bump-prompt": "^5.0.4"
   },
   "bin": {
     "node-site-downloader": "./index.js"
