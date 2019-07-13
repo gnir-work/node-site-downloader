@@ -17,6 +17,7 @@ const {
     BLACK_LIST
 } = require("./consts");
 const utils = require("./utils/utils");
+const AspPlugin = require("./plugins/asp_plugin");
 
 const urlFilter = url => {
     const shouldDownload = utils.checkUrl(url, domain, {
@@ -42,6 +43,8 @@ scrape({
     recursive: true,
     directory: `${outputFolder}.${outputFolderSuffix}`,
     maxDepth: MAX_DEPTH,
+    // @ts-ignore
+    plugins: [new AspPlugin()],
     urlFilter
 })
     .then(data => {
