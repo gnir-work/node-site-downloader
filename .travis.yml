@@ -23,5 +23,6 @@ jobs:
     - docker build -t $(./get_image_name.sh) .
     - docker images
     - docker tag $(./get_image_name.sh) $DOCKER_USERNAME/$(./get_image_name.sh)
+    - docker tag $(./get_image_name.sh) $DOCKER_USERNAME/node-site-downloader:latest
     - docker push $DOCKER_USERNAME/$(./get_image_name.sh)
     - docker push $DOCKER_USERNAME/node-site-downloader:latest
