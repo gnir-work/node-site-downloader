@@ -4,7 +4,9 @@
   "description": "An easy to use CLI for downloading websites for offline usage",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest",
+    "test-docker": "./build_docker.sh",
+    "test-js": "npx jest",
+    "test": "npm run test-js && npm run test-docker",
     "format": "prettier **/*.{js,mjs} --write",
     "version-bump": "npm test && npx bump --commit --tag --push"
   },
