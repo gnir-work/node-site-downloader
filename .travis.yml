@@ -18,12 +18,8 @@ jobs:
       tag: latest
   - stage: docker release
     script:
-    - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t $(./get_image_name.sh) .
     - docker images
     - docker tag $(./get_image_name.sh) $DOCKER_USERNAME/$(./get_image_name.sh)
     - docker push $DOCKER_USERNAME/$(./get_image_name.sh)
-env:
-  matrix:
-  - secure: SdOyiQGq8EmS4pzsRH2kn0Y544HMRFGqPh5e2NSi1g1runPsNRbsCNzWtyQ8IElSDIHgpVqfNdHa+xvaWQIoWkZYqpT04peHLS6BG2L7CHADOaj/HmU9cRBt7DB20eGccXVgHQjka6AWjMzwHqYu3f+ullR9VmK3ogbr00zQ7RQ/o/2ANZ1x0qsQygz9v3i07FgznxNhtu/aUQPpAmNwoYADbcU7mAiNuXrIjW4DIpyuoDX8iohck8PYMOEl2LK6U5fWY5VdbgEjwVafjR5+NZ7vbRx/jTi6n+leVtJJOFTp+VSizH00FbEVuZkaNPoNcg272tRffkyTCNpkbS+GLvz7nmM4XZYkX5g16uQ/JA/aAN/xLR1s/wfYuI9q9axctEJ4Uvt/o7PIOQFOofynaMnHHvIrvajXh19wU3qfOob8g0mgPYM/CilQtDTe2GyemrIB4m5goBu8S7ATiJ3HQuU1LeDLORL9Vf/VtdcmZe92cqUru/OtqxJCyMZROS7Tte6Bej+6/NusgiN0eKIuxFDfii8LY5XL9TYkifrXhhylonEgLwJGpiMlpobRsx4V3sfD7WMT/dUHfTTtBBZJTHGo9igFSluA9ql21cvUysZ9dlQHhB6+lp6H7v8IKeG28XzScDyCUVKWODGURhp5XrNjQquZNAEODq6KvH7LngI=
-  - secure: xoBbggHss6EzyiVZ3go9V5cHf8npYPGRTvKnOyndgJip5TDSXHeMSsDG3V0HGxVS6sM6CWA7PpUQcob5mWI/vnh7Bi9dy1HPpDr6DYz6dKPjGXeGarRUYjamR9OtvSN+cbx1a6LQvXHjy770APbMJXsK4fpGesfMjiF0sM9d1Wml1xOD7zU1+raSjuWibzpRJ82Au1oqnwc/q3h+rIcLIW8BXFIbxG6VwjRbB+Q2aar/+SV3DkMEVzHSBsckCwaFWv9/Syg6GiW+asSG7Q4vQNnzJJyF75EdlxPNFObGzdJdUMZUwt5s7cEK7C0wI/Gs8ofvvN7egyHk3QvmX1/LjmEoE8MXZmgkmkyeM2Eheq3+sbHf2lFHlXGeY0D7v6egUK6sIji7T/xNTyj365XzBj8n64iZUQDBLvKekSBO9jNLRI3hP4oH9I8vGfpZyKmIc7KJ8noih+QwM1qzQIY+Es3DBon7OUfkuDYluNg8Q3xkEn5/ZB945eBQ5uiWvvdb1LJd0/GH+7ONwQTELgponKdv9OVqmbfq3IVy1mDTHydmTTwsc/lqYsNo44HktXJ5+KCrCT4JjrEmIwmXBf19lBqtiKV3oY9v8fmxnWVE6+X1TOzU0jfnos93GklUuAwlMe2roBQV+1Nz8oDo3HFRGnj9UgVjf+muKRWZHbginag=
