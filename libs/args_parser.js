@@ -1,6 +1,5 @@
 // @ts-nocheck
 const yargs = require("yargs");
-const { INCLUDE_IMAGES } = require("./consts");
 
 /**
  * All of the user parameters
@@ -16,8 +15,8 @@ const { INCLUDE_IMAGES } = require("./consts");
  * @type {UserParams}
  */
 const params = yargs
-    .help()
-    .alias("help", "h")
+    .scriptName('node-site-downloader')
+    .usage('$0 <cmd> [args]')
     .command("download", "Download a web site locally", {
         domain: {
             description: "All urls under this domain will be downloaded",
@@ -54,6 +53,9 @@ const params = yargs
             default: "site"
         }
     })
+    .help()
+    .alias("help", "h")
+    .alias("version", "V")
     .demandCommand(1, "Please selected at least on command before moving on")
     .argv;
 

@@ -4,12 +4,25 @@ node_js:
 - '8'
 - '9'
 - '10'
-deploy:
-  provider: npm
-  email: gnir.work@gmail.com
-  api_key:
-    secure: kSRA8fREnzZtq7Ylg4koaRTNua44bhxH5n4zD6KkvTakRF2jwfnAdfPLn8ezwhk9/Ck88684lfbcmrp4VVEJvQH/6YZkjBki0eMwyeyfZbJIfWz4KbCWSCZoNGfig5cTYC5M1Lq3+xIfhBDYaK6PTP2cV4NoSQoo70VjZTAsNMttIUBV4IJ67uck4m/FUT55FCXkLNMxucDDTMlQcfk6eQRnGMKMrcM19U+00cdun9vMVn+coyxOVdnIlc9ytlTiz0YTVKXB/N0mfYQyZ6GilT4N9sR4im1KW1bqMYBxyrXtVrIK0nyjcQw0suWomLmIe6S+h1dvov+Ydr7bjEEfygz86zQ4yxUB5qAiQv6y5NDd+gMMi0tWj+bGBhE+jH7nP+XdyEYeOrBj10PA8ujrwnpVRwZKRLiN9mgbshtXcLN/yX0iNhnZEP3EfimxMkMcSSzCscmmzHSu9wU6886pnTA50Yn8ym+Wd3nRvBf7P4jBhkebBFzLzCw1pnoE2x8PEG2TtVY+Lq5i9KpFOB7vMKFjP4CjZJAPUkfUKu3NOIWfeKhPdmHJCWC1jbVLLxweJPLjYmMRpzGo/pZDcu9fVbLIP4PHGwcTEkvUkPKBQIcZuHoO1oEcIjITVYvpDtd89bFpPKBWzoNTqnK63fPTavyGgi/kfSjvPHGT/Yx9pDE=
-  on:
-    tags: true
-    branch: master
-  tag: latest
+jobs:
+  include:
+  - stage: npm release
+    deploy:
+      provider: npm
+      email: gnir.work@gmail.com
+      api_key:
+        secure: kSRA8fREnzZtq7Ylg4koaRTNua44bhxH5n4zD6KkvTakRF2jwfnAdfPLn8ezwhk9/Ck88684lfbcmrp4VVEJvQH/6YZkjBki0eMwyeyfZbJIfWz4KbCWSCZoNGfig5cTYC5M1Lq3+xIfhBDYaK6PTP2cV4NoSQoo70VjZTAsNMttIUBV4IJ67uck4m/FUT55FCXkLNMxucDDTMlQcfk6eQRnGMKMrcM19U+00cdun9vMVn+coyxOVdnIlc9ytlTiz0YTVKXB/N0mfYQyZ6GilT4N9sR4im1KW1bqMYBxyrXtVrIK0nyjcQw0suWomLmIe6S+h1dvov+Ydr7bjEEfygz86zQ4yxUB5qAiQv6y5NDd+gMMi0tWj+bGBhE+jH7nP+XdyEYeOrBj10PA8ujrwnpVRwZKRLiN9mgbshtXcLN/yX0iNhnZEP3EfimxMkMcSSzCscmmzHSu9wU6886pnTA50Yn8ym+Wd3nRvBf7P4jBhkebBFzLzCw1pnoE2x8PEG2TtVY+Lq5i9KpFOB7vMKFjP4CjZJAPUkfUKu3NOIWfeKhPdmHJCWC1jbVLLxweJPLjYmMRpzGo/pZDcu9fVbLIP4PHGwcTEkvUkPKBQIcZuHoO1oEcIjITVYvpDtd89bFpPKBWzoNTqnK63fPTavyGgi/kfSjvPHGT/Yx9pDE=
+      on:
+        tags: true
+        branch: master
+      tag: latest
+  - stage: docker release
+    if: branch = master AND tag IS present
+    script:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker build -t $(./get_image_name.sh) .
+    - docker images
+    - docker tag $(./get_image_name.sh) $DOCKER_USERNAME/$(./get_image_name.sh)
+    - docker tag $(./get_image_name.sh) $DOCKER_USERNAME/node-site-downloader:latest
+    - docker push $DOCKER_USERNAME/$(./get_image_name.sh)
+    - docker push $DOCKER_USERNAME/node-site-downloader:latest
