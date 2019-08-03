@@ -17,10 +17,11 @@ jobs:
         branch: master
       tag: latest
   - stage: docker release
-    if: branch = master AND tag IS present
+    # if: branch = master AND tag IS present
     script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t $(./get_image_name.sh) .
     - docker images
     - docker tag $(./get_image_name.sh) $DOCKER_USERNAME/$(./get_image_name.sh)
     - docker push $DOCKER_USERNAME/$(./get_image_name.sh)
+    - docker push $DOCKER_USERNAME/node-site-downloader
